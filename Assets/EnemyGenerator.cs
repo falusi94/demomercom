@@ -20,7 +20,7 @@ public class EnemyGenerator : MonoBehaviour {
 		int numberOfEnemyType = enemyTypes.Length;
 		float step = (xMax - xMin) / numberOfEnemies;
 
-		for (int i = 0; i < numberOfEnemyType; i++) {
+		for (int i = 0; i < numberOfEnemies; i++) {
 
 			Transform obj = enemyTypes [Random.Range(0, numberOfEnemyType)];
 
