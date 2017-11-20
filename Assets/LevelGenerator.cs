@@ -9,9 +9,12 @@ public class LevelGenerator : MonoBehaviour {
 	public float		zMin;
 	public float		zMax;
 	public float		y;
-	public Transform 	tree1;
-	public Transform 	tree2;
-	public Transform 	tree3;
+	public Transform 	element1;
+	public Transform 	element2;
+	public Transform 	element3;
+	public Transform 	element4;
+	public Transform 	element5;
+	public Transform 	element6;
 	public Transform	parentTransform;
 
 	private float randomFloat(float min, float max) {
@@ -21,7 +24,7 @@ public class LevelGenerator : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Transform[] elementTypes = {tree1, tree2, tree3};
+		Transform[] elementTypes = {element1, element2, element3, element4, element5, element6};
 		int numberOfElementType = elementTypes.Length;
 		float step = (xMax - xMin) / numberOfElements;
 
