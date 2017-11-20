@@ -521,6 +521,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 225c1b99d685e435eab5771b41ce33c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemies: {fileID: 1524130446}
+  attackStrength: 10
 --- !u!1 &1953792034
 GameObject:
   m_ObjectHideFlags: 0
@@ -609,6 +611,7 @@ MonoBehaviour:
   enemy3: {fileID: 4000011826580284, guid: 5b210609803658e488f512fc13a6163e, type: 2}
   parentTransform: {fileID: 1524130446}
   target: {fileID: 1796840902}
+  maxHealth: 0
 --- !u!4 &2080482219 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4209018105610702, guid: ef140beec582a5a46a6362fcfc31784d,

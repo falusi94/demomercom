@@ -12,6 +12,7 @@ public class EnemyGenerator : MonoBehaviour {
 	public Transform 	enemy3;
 	public Transform	parentTransform;
 	public GameObject	target;
+	public int 			maxHealth = 100;
 
 	// Use this for initialization
 	void Start () {
@@ -24,8 +25,11 @@ public class EnemyGenerator : MonoBehaviour {
 			Transform obj = enemyTypes [Random.Range(0, numberOfEnemyType)];
 
 			Transform enemy = GameObject.Instantiate (obj, parentTransform);
-			EnemyAttack script = enemy.gameObject.AddComponent<EnemyAttack> ();
-			script.target = target;
+			EnemyAttack attackScript = enemy.gameObject.AddComponent<EnemyAttack> ();
+			attackScript.target = target;
+
+			EnemyLife lifeScript = enemy.gameObject.AddComponent<EnemyLife> ();
+			lifeScript.maxHealth = maxHealth;
 
 			enemy.localScale = new Vector3 (0.5f, 0.5f, 0.5f);
 
