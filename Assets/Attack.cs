@@ -3,19 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Attack : MonoBehaviour {
-	public Transform enemies;
-	public int attackStrength = 10;
-	public float attackDistance = 3f;
-	private Animator animator;
+	public Transform	enemies;
+	public int			attackStrength = 10;
+	public float		attackDistance = 3f;
+	private Animator	animator;
+	private float 		lastAttackTime;
+	private bool		attacking;
 
 	// Use this for initialization
 	void Start () {
 		animator = this.GetComponentInChildren<Animator>();
+		lastAttackTime = 0f;
+		attacking = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKey (KeyCode.Space)) {
+		float deltaTime = Time.deltaTime;
+		lastAttackTime += deltaTime;
+
+		if (lastAttackTime > 1f && attacking) {
+			attacking = false;
+		}
+
+		if (Input.GetKey (KeyCode.Space) && !attacking) {
+			attacking = true;
+			lastAttackTime = 0f;
 			animator.SetBool ("isAttacking", true);
 			animator.CrossFade ("Attack1H", 1);
 
