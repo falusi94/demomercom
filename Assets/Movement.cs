@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour {
 	public float moveSpeed = 5f;
+	public float xMin;
+	public float xMax;
 	private Animator animator;
 
 	// Use this for initialization
@@ -22,8 +24,8 @@ public class Movement : MonoBehaviour {
 		//bool up = Input.GetAxis("Vertical") > 0;
 		//bool down = Input.GetAxis("Vertical") < 0;
 
-		if (right) dv += new Vector3(moveSpeed * deltaTime,0,0);
-		if (left) dv += new Vector3(-moveSpeed * deltaTime,0,0);
+		if (right && transform.position.x < xMax) dv += new Vector3(moveSpeed * deltaTime,0,0);
+		if (left && transform.position.x > xMin) dv += new Vector3(-moveSpeed * deltaTime,0,0);
 		//if (up)	dv += new Vector3(0,movespeed * dt,0);
 		//if (down)dv += new Vector3(0,-movespeed * dt,0);
 		transform.position += dv;
