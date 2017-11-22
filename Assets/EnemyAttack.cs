@@ -5,19 +5,26 @@ using UnityEngine;
 public class EnemyAttack : MonoBehaviour {
 	public GameObject target;
 	public float followSpeed = 2.0f;
+	public float attackDistance = 3.0f;
+	public int attackStrength = 10;
 	private Animator animator;
+	private float lastAttackTime;
+	private bool attacking;
 
 	// Use this for initialization
 	void Start () {
 		animator = this.GetComponentInChildren<Animator>();
+		lastAttackTime = 0f;
+		attacking = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		float distance = Vector3.Distance (target.transform.position, transform.position);
+		float deltaTime = Time.deltaTime;
+		lastAttackTime += deltaTime;
 
 		if (distance < 25f && distance > 3f) {
-			float deltaTime = Time.deltaTime;
 			Vector3 dv = new Vector3 (0,0,0);
 
 			bool left = target.transform.position.x - transform.position.x < 0;
@@ -39,9 +46,19 @@ public class EnemyAttack : MonoBehaviour {
 				transform.localScale = new Vector3 (Mathf.Abs (s.x), s.y, s.z);
 		}
 
-		if (distance < 5f) {
+		if (lastAttackTime > 1f && attacking) {
+			attacking = false;
+		}
+
+		if (distance < attackDistance && !attacking) {
+			attacking = true;
+			lastAttackTime = 0f;
 			animator.SetBool ("isAttacking", true);
 			animator.CrossFade ("Rouge_attack_01", 1);
+
+			Life script = target.GetComponent<Life> ();
+			script.attacked (attackStrength);
+
 		} else {
 			animator.SetBool ("isAttacking", false);
 		}
