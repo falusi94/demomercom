@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour {
 	public float moveSpeed = 5f;
+	public float runSpeed = 10f;
 	public float xMin;
 	public float xMax;
 	private Animator animator;
@@ -24,13 +25,23 @@ public class Movement : MonoBehaviour {
 		//bool up = Input.GetAxis("Vertical") > 0;
 		//bool down = Input.GetAxis("Vertical") < 0;
 
-		if (right && transform.position.x < xMax) dv += new Vector3(moveSpeed * deltaTime,0,0);
-		if (left && transform.position.x > xMin) dv += new Vector3(-moveSpeed * deltaTime,0,0);
+		float speed = moveSpeed;
+		if (Input.GetKey (KeyCode.LeftShift) || Input.GetKey (KeyCode.RightShift)) {
+			speed = runSpeed;
+		}
+
+		if (right && transform.position.x < xMax) dv += new Vector3(speed * deltaTime,0,0);
+		if (left && transform.position.x > xMin) dv += new Vector3(-speed * deltaTime,0,0);
 		//if (up)	dv += new Vector3(0,movespeed * dt,0);
 		//if (down)dv += new Vector3(0,-movespeed * dt,0);
 		transform.position += dv;
-		if (dv.magnitude > 0f)
-			animator.SetInteger ("AnimationState", 1);
+	
+		if (dv.magnitude > 0f) {
+			if (Input.GetKey (KeyCode.LeftShift) || Input.GetKey (KeyCode.RightShift))
+				animator.SetInteger ("AnimationState", 3);
+			else
+				animator.SetInteger ("AnimationState", 1);
+		}
 		else
 			animator.SetInteger ("AnimationState", 0);
 
