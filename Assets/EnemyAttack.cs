@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour {
-	public GameObject target;
-	public float followSpeed = 2.0f;
-	public float attackDistance = 3.0f;
-	public int attackStrength = 10;
+	public GameObject	target;
+	public float		followSpeed = 2f;
+	public float		runSpeed = 5f;
+	public float		attackDistance = 3f;
+	public int			attackStrength = 10;
 	private Animator animator;
 	private float lastAttackTime;
 	private bool attacking;
@@ -30,12 +31,21 @@ public class EnemyAttack : MonoBehaviour {
 			bool left = target.transform.position.x - transform.position.x < 0;
 			bool right = target.transform.position.x - transform.position.x > 0;
 
-			if (right) dv += new Vector3(followSpeed * deltaTime,0,0);
-			if (left) dv += new Vector3(-followSpeed * deltaTime,0,0);
+			float speed = followSpeed;
+			if (distance < 10f) {
+				speed = runSpeed;
+			}
+
+			if (right) dv += new Vector3(speed * deltaTime,0,0);
+			if (left) dv += new Vector3(-speed * deltaTime,0,0);
 			transform.position += dv;
 
-			if (dv.magnitude > 0f)
-				animator.SetInteger ("AnimationState", 1);
+			if (dv.magnitude > 0f) {
+				if (distance < 10f)
+					animator.SetInteger ("AnimationState", 3);
+				else
+					animator.SetInteger ("AnimationState", 1);
+			}
 			else
 				animator.SetInteger ("AnimationState", 0);
 			
